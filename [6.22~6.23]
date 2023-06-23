@@ -1,0 +1,257 @@
+
+[06.22]
+
+# abcde 
+
+# BFS 시간 초과로 해설 보면서 DFS 공부함
+
+import sys
+input = sys.stdin.readline
+
+n,m = map(int,input().split())
+
+link = [[] for _ in range(n)]
+
+visited = [False] * n
+
+# 각 사람의 친구를 저장함
+
+for _ in range(m):
+    a,b = map(int,input().split())
+    link[a].append(b)
+    link[b].append(a)
+    
+def dfs(v,d):
+    if d==4:
+        print(1)
+        sys.exit()
+        
+    for i in link[v]:
+
+        # 방문한 적이 없으면
+        
+        if not visited[i]:       
+            visited[i] = True
+            dfs(i,d+1)
+
+            # visited 초기화 해주기
+            
+            visited[i] = False
+
+# 0번째 사람 부터 체크
+
+for start in range(n):
+    visited[start] = True
+    dfs(start,0)
+    visited[start] = False
+    
+print(0)
+
+
+
+
+
+
+
+
+
+
+
+'''
+# bfs 시간 초과
+
+def check(queue,k):
+
+    friend = [ ]
+
+    temp = [ ]
+
+    while queue:
+
+        x,y = queue.popleft()
+
+        temp.append([x,y])
+
+        if x not in friend:
+            friend.append(x)
+        if y not in friend:
+            friend.append(y)
+
+        if len(friend)>=5:
+            return True
+        
+        for i in range(0,len(k)):
+
+            # 전꺼의 뒤에 꺼랑 같던가
+            
+            if k[i][1] == x and k[i] not in queue:
+                temp.append(k[i])
+                queue.append(k[i])
+                
+
+            # 뒤꺼의 앞에 꺼랑 같던가
+
+            if k[i][0] == y and k[i] not in queue:
+                temp.append(k[i])
+                queue.append(k[i])
+        
+                
+    return False
+
+    
+
+n,m = list(map(int,list(sys.stdin.readline().split(" "))))
+
+k = [ ]
+
+for i in range(0,m):
+    k.append(list(sorted(list(map(int,list(sys.stdin.readline().split(" ")))))))
+
+member = [ ]
+
+
+# 5명을 골랐는데 그 5명이 친구인 경우 찾기
+
+temp_check = False
+
+for i in range(0,len(k)):
+
+    queue = deque()
+    queue.append(k[i])
+
+    if check(queue,k) == True:
+
+        print(1)
+        temp_check = True
+        break
+
+if temp_check == False:
+    print(0)
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+# Guess
+
+
+
+import sys
+from itertools import combinations
+from itertools import permutations
+
+
+# 순열 바로 쓰니까 메모리 초과나서 조합 쓰고 순열 쓰면서 메모리 최대한 줄이려고 했는데 메모리 초과 발생
+# 풀이 읽어봐도 잘 이해가 안됌.
+
+  def check(k,boso):
+
+    compare = [ ]
+
+    for i in range(0,len(k)):
+        sums = 0
+        for j in range(i,len(k)):
+            sums += k[j]
+
+            if sums > 0:
+                compare.append("+")
+            elif sums == 0:
+                compare.append("0")
+            else:
+                compare.append("-")
+        sums = 0
+    if compare == boso:
+        return True
+
+
+n = int(input())
+boso = list(sys.stdin.readline().rstrip())
+
+
+
+
+num = [ ]
+
+for i in range(-9,10):
+    num.append(i)
+
+
+temp = list(combinations(num,n))
+
+for i in range(0,len(temp)):
+
+    k = list(permutations(list(temp[i]),len(list(temp[i]))))
+
+    for j in range(0,len(k)):
+        
+        if check(k[j],boso) == True:
+
+            for i in k[j]:
+                print(i,end=" ")
+            sys.exit()
+
+'''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[06.23]
+
+
+# 부분수열의 합
+
+# 연속하는 게 아닌 임의로 추출한 값들
+# N이 작아서 조합 돌림
+
+import sys
+from itertools import combinations
+
+
+n,s = list(map(int, sys.stdin.readline().split()))
+
+k = list(map(int, sys.stdin.readline().split()))
+
+answer = 0
+
+
+for i in range(1,len(k)+1):    
+    
+    temp = list(combinations(k,i))
+
+    for j in range(0,len(temp)):
+        if sum(list(temp[j])) == s:
+            answer+=1
+
+
+print(answer)
+
+
+
+# 종이 조각
+
+# 해설봐도 모르겠음... 발표 걸리면 다시 봐올게요

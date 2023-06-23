@@ -4,3 +4,5 @@
  <br> 
  
  <h3>노션 링크 : https://www.notion.so/DigitalHanaro_-3ae0bda45481471cb0c3da68cd00b70c</h3>
+
+ <h3>게더타운 링크 : https://app.gather.town/app/TThRuQXDGKYSxM2x/HANA_Algorithm_Study</h3>

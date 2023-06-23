@@ -1,0 +1,98 @@
+// 백준_실버1_15661번_링크와스타트
+
+/*
+풀이>
+전체적으로 중복되지않는 깊이 우선탐색으로 구현
+한 팀을 뽑았을때, 나머지 인원을 팀으로 만들어 각각 총 능력치를 구한 후
+두 능력치의 차이를 계산하여 최솟값을 갱신하도록하였다.
+
+
+*/
+
+
+
+
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+int N;
+int arr[22][22] = { 0, };
+int total = 0;
+int sol = 1000000000;
+int sol_arr[22] = { 0, };
+int visit[22] = { 0, };
+
+void dfs(int count, int idx) {
+
+	//cout << "===dfs 입성===" << '\n';
+
+	if (count >= 1) {
+		vector<int> v;
+		int tmp = 0;
+		int tmp2 = 0;
+		int result = 0;
+		for (int i = 1; i <= count; i++) {
+			for (int j = 1; j <= count; j++) {
+				tmp += arr[sol_arr[i]][sol_arr[j]];
+			}
+		}
+
+		for (int i = 1; i <= N; i++) {
+			int flag = 0;
+			for (int j = 1; j <= count; j++) {
+				if (sol_arr[j] == i) {
+					flag = 1;
+				}
+			}
+
+			if (flag == 0) {
+				v.push_back(i);
+			}
+		}
+
+		for (int i = 0; i < v.size(); i++) {
+			for (int j = 0; j < v.size(); j++) {
+				tmp2 += arr[v[i]][v[j]];
+			}
+		}
+
+		result = abs(tmp - tmp2);
+
+		if (result < sol) {
+			sol = result;
+		}
+
+		//cout << sol << '\n';
+	}
+
+	for (int i = idx; i <= N; i++) {
+		if (visit[i] == 0) {
+			visit[i] = 1;
+			sol_arr[count + 1] = i;
+			dfs(count + 1,i+1);
+			visit[i] = 0;
+		}
+	}
+
+
+}
+
+int main() {
+
+	cin >> N;
+
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= N; j++) {
+			cin >> arr[i][j];
+		}
+	}
+	//cout << total << '\n';
+
+	dfs(0,1);
+
+	cout << sol;
+
+	return 0;
+}
