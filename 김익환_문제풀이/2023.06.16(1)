@@ -1,0 +1,64 @@
+// 백준_실버2_6603번_로또
+
+/*
+풀이>
+재귀를 사용한 깊이 우선 탐색으로 구현했고
+count를 이용해 개수를 체크하고 idx변수를 사용해 중복없이 순차적으로 탐색할 수 있도록 구성했다.
+
+*/
+
+#include<iostream>
+
+using namespace std;
+
+int k;
+int arr[14] = { 0, };
+int visit[14] = { 0, };
+int sol[14] = { 0, };
+
+void print() {
+	for (int i = 1; i <= 6; i++) {
+		cout << sol[i] << " ";
+	}
+	cout << '\n';
+}
+
+void dfs(int count, int idx) {
+	if (count > 6) {
+		print();
+		return;
+	}
+
+	for (int i = idx; i <= k; i++) {
+		sol[count] = arr[i];
+		dfs(count+1,i+1);
+	}
+}
+
+void init() {
+	for (int i = 0; i < 14; i++) {
+		visit[i] = 0;
+	}
+}
+
+int main() {
+
+
+	while (1) {
+		cin >> k;
+
+		if (k == 0)
+			break;
+
+		for (int i = 1; i <= k; i++) {
+			cin >> arr[i];
+		}
+
+		dfs(1,1);
+
+		init();
+		cout << '\n';
+	}
+
+	return 0;
+}

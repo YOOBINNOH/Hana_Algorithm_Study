@@ -1,0 +1,72 @@
+// 백준_골드5_13023번_ABCDE
+
+/*
+풀이>
+깊이 우선탐색으로 전체적은 틀을 구성하고 풀이했으나 시간초과가 계속 발생함.
+
+결론 -> 사용할 배열들의 할당등을 필요한 만큼만 할당되도록 해야 시간초과가 일어나지않았다.
+
+=> 그래서 vector를 이용해 필요한 값들만 추가해주는 방식으로 메모리 사용과 연산횟수를 줄였다.
+*/
+
+
+#include<iostream>
+#include<vector>
+
+using namespace std;
+
+int N,M;
+int sol = 0;
+
+void dfs(int count, int idx, vector<vector<int>> &vec, vector<bool> &visit) {
+
+
+	if (count == 4) {
+		sol = 1;
+		return;
+	}
+
+
+
+	for (int i = 0; i < vec[idx].size(); i++) {
+		if (visit[vec[idx][i]] == 0) {
+			visit[vec[idx][i]] = 1;
+			dfs(count + 1, vec[idx][i], vec, visit);
+			visit[vec[idx][i]] = 0;
+		}
+	}
+}
+
+int main() {
+
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	cout.tie(0);
+
+	int a, b;
+
+	cin >> N >> M;
+
+	vector<vector<int>> vec(N);
+	vector<bool> visit(N);
+
+	for (int i = 1; i <= M; i++) {
+		cin >> a >> b;
+
+		vec[a].push_back(b);
+		vec[b].push_back(a);
+	}
+
+	for (int i = 0; i < N; i++) {
+		visit[i] = 1;
+		dfs(0, i, vec, visit);
+		visit[i] = 0;
+		if (sol == 1)
+			break;
+	}
+
+	cout << sol;
+
+
+	return 0;
+}

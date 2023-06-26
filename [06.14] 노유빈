@@ -1,0 +1,82 @@
+# 외판원 순회
+
+# 주어진 조건 숫자가 작아서 순열 썼습니다. check 함수를 이용해서 불가능 한 경우도 체크를 했어요
+
+import sys
+from itertools import permutations
+
+def check(list,k):
+
+    answer = 0
+
+    # list = [0,1,2,3]
+    
+    if k[list[-1]][list[0]] == 0:
+        return 100000000000
+    else:
+        answer += k[list[-1]][list[0]]
+
+    for i in range(0,len(list)-1):
+
+        start = list[i]
+        end = list[i+1]
+
+        if  k[start][end] == 0:
+            return 100000000000
+
+        else:
+            answer += k[start][end]
+      
+    return answer
+            
+    
+
+num = int(input())
+
+city = [ ]
+
+for i in range(0,num):
+    city.append(i)
+
+k = [ ]
+
+for i in range(num):
+    k.append(list(map(int,input().split(" "))))
+
+
+temp = list(permutations(city))
+
+answer = 100000000000
+
+
+
+
+for i in range(0,len(temp)):    
+
+    if check(list(temp[i]),k) < answer:
+        answer = check(temp[i],k)
+        
+    
+print(answer)
+
+
+
+
+    
+
+
+
+# N과 M (9)
+
+# permutations 쓰고 set 하고 정렬만 하면 됩니다. 굳이 짧게 해봤어요
+
+
+from itertools import permutations
+
+
+
+n,m = list(map(int,input().split(" ")))
+
+for i in list(sorted(list(set(list(permutations(list(map(int,input().split(" "))),m)))))):
+    print(*i)
+

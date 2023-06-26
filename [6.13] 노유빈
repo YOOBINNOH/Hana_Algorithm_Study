@@ -1,0 +1,158 @@
+# 1, 2, 3 더하기
+
+'''
+중복 순열을 이용해서 품. 최소로 필요한 숫자와 최대로 필요한 숫자를 구해 그 사이의 가능한 리스트들을 중복 순열로 뽑고 확인함. n이 11 이하이여서 이렇게 함
+
+'''
+
+import sys
+from itertools import product
+
+def check(k):
+
+    answer = 0
+
+    num = [1,2,3]
+
+    mins = int(k//3)
+    maxs = k
+
+    for i in range(mins,maxs+1):
+
+        temp = list(product(num,repeat=i))
+
+        for i in range(0,len(temp)):
+            if sum(temp[i]) == k:
+                answer+=1
+
+    return answer
+            
+    
+    
+
+num = int(input())
+
+for i in range(num):
+
+    k = int(input())
+
+    print(check(k))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 수 이어쓰기
+
+''' 
+문자열의 자릿수를 구한 후 그 값에 알맞는 개수들을 더해주기
+구글링함
+
+'''
+
+n = input()
+
+# 주어진 문자 길이 - 1
+
+# 한 자리수 1~9
+# 두 자리수 10~99
+# 세 자리수 100~999
+
+comp = len(n) - 1
+
+answer = 0
+
+for i in range(comp):
+    answer += 9 * (10 ** i) * (i + 1)
+    i += 1
+answer += ((int(n) - (10 ** comp)) + 1) * (comp + 1)
+
+print(answer)
+
+
+
+
+
+
+
+
+
+
+
+
+# 모든 순열
+
+''' 
+순열로 쉽게 품
+'''
+
+import sys
+from itertools import permutations
+
+num = int(input())
+
+k = [ ]
+
+for i in range(num):
+    k.append(i+1)
+
+
+temp = list(permutations(k,len(k)))
+
+for i in temp:
+    print(*i)
+
+
+
+
+
+
+
+
+
+# N과 M (5)
+
+
+'''
+k를 정렬을 미리 함으로써 그 후에 따로 정렬을 안해도 됌. 순열로 품
+
+'''
+
+
+
+import sys
+from itertools import permutations
+
+N,M = list(map(int,input().split(" ")))
+
+k = list(map(int,input().split(" ")))
+
+k = list(sorted(k))
+temp = list(permutations(k,M))
+
+for i in temp:
+    print(*i)
+
+
+
+
+
+
+
+
+
+
+
+
+
