@@ -62,3 +62,55 @@ for r1 in combinations(members, n // 2):  # 3 전체멤버의 절반을 r1으로
     min_value = min(min_value, abs(start - link))  # 7 한번의 r1으로 뽑는 조합이 끝날때마다 최소값 갱신
 print(min_value)
 
+<<<<<<< HEAD:민새미/5주차_민새미/[06.20]
+
+############################################################
+# 빠져있길래.. 다시 추가해 넣었다.
+# DFS와 비슷한 문제였다. 접근은 어느정도 했지만 구체적인 코드 작성에는 어려움을 느껴서 참고하여 풀었다.
+# 방문하면서 check 함수에서도 부등호 값이 true인지 아닌지에 따라 012로 들어갈 애가 021로 나와 바뀌게 된다.
+
+
+
+n = int(input())
+
+arr = list(map(str, input().split()))
+
+visited = [0] * 10
+out1 = ""  # 작은값 기준
+out2 = ""  # 큰값 기준
+
+
+def check(i, j, k):
+    if k == "<":
+        return i < j
+    else:
+        return i > j
+
+
+def dfs(depth, s):
+    print(s)
+    global out1, out2
+    if depth == n + 1:
+        # 맨 처음 생성, 최소값
+        if len(out1) == 0:
+            out1 = s
+        # 계속 대입, 마지막에는 최대값
+        else:
+            out2 = s
+        return
+    for i in range(10):
+        if not visited[i]:
+            if depth == 0 or check(s[-1], str(i), arr[depth - 1]):
+                visited[i] = 1
+                dfs(depth + 1, s + str(i))
+                visited[i] = 0
+
+
+dfs(0, "")
+print(out2)
+print(out1)
+
+
+
+=======
+>>>>>>> eb5f000e2d53cb3aa81a38ec0779223c2eda9d9e:5주차_민새미/[06.20]
