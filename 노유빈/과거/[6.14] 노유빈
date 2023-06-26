@@ -1,0 +1,80 @@
+# 차이를 최대로
+
+# 하나 코테 3번 문제 처럼 최대 최소 번갈아서 해보려고 했는데 안됐고, N 이 작길래 순열로 돌렸습니다.
+
+
+import sys
+from itertools import permutations
+from collections import deque
+
+def check(k):
+    answer = 0
+
+    for i in range(0,len(k)-1):
+        answer += max(k[i+1]-k[i],-(k[i+1]-k[i]))
+
+    return answer 
+
+
+N = int(input())
+
+k = list(map(int,input().split(" ")))
+
+a= 0
+
+'''
+k = list(sorted(k))
+
+temp =  [ ]
+
+
+k = deque(k)
+
+answer = 0
+
+while k:
+
+    temp.append(k.popleft())
+
+    temp.append(k.pop())
+
+print(temp)
+'''
+
+answer = 0
+
+temp = list(permutations(k))
+
+for i in range(0,len(temp)):
+    if check(temp[i]) > answer:
+        answer = check(temp[i])
+
+
+
+
+print(answer)
+
+
+
+
+
+
+
+
+
+# N과 M (7)
+
+# product 쓰고 정렬만 하면 됩니다. 굳이 짧게 해봤어요
+
+
+
+
+from itertools import product
+
+
+
+n,m = list(map(int,input().split(" ")))
+
+
+for i in list(sorted(list(product(list(map(int,input().split(" "))),repeat = m)))):
+    print(*i)

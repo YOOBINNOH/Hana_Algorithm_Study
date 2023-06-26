@@ -1,0 +1,138 @@
+# 집합 
+
+
+# list,deque,set 모두 시간 초과 나서 보니까 sys.stdin.readline() 을 안써서 그런거
+
+import sys
+from itertools import combinations
+import math
+from collections import deque
+
+num = int(sys.stdin.readline())
+
+k = deque()
+
+for i in range(num):
+    
+    temp = sys.stdin.readline().split()
+    
+
+    
+    if len(temp)==1 and temp[0] == "all":
+        k = [ ]
+        for i in range(1,21):
+            k.append(i)
+        
+    
+    elif len(temp)==1 and temp[0] == "empty":
+        k = [ ]
+
+    else:
+        
+        a = temp[0]
+        b = int(temp[1])
+        
+        if a == "add":
+            if b not in k:
+                k.append(b)
+
+        elif a == "remove":
+            if b in k:
+                k.remove(b)
+
+        elif a == "check":
+            if b in k:
+                print("1")
+            else:
+                print("0")
+                      
+
+        elif a == "toggle":
+            if b in k:
+                k.remove(b)
+            else:
+                k.append(b)
+            
+        
+
+        
+    
+    
+# 링크와 스타  
+  
+
+# 전날 문제에서 조합의 경우의 수 for문만 추가해주면 됌. 시간 초과나서 pypy3 로 풀음
+
+import sys
+from itertools import combinations
+import math
+
+def check(k,list):
+    
+    answer = 0
+    
+    for i in range(0,len(list)-1):
+        for j in range(i+1,len(list)):
+
+            answer += k[list[i]][list[j]]
+            answer += k[list[j]][list[i]]
+
+    return answer
+    
+
+    
+
+num =int(input())
+
+k = [ ]
+
+for i in range(num):
+    k.append(list(map(int,sys.stdin.readline().rstrip().split(" "))))
+
+
+member = [ ]
+
+for i in range(num):
+    member.append(i)
+
+all_sum = 0
+
+for i in range(0,len(k)):
+    all_sum += sum(k[i])
+    
+answer = [ ]
+# 팀 나누기
+
+for z in range(1,num//2+1):
+    
+
+    first = list(combinations(member,z))
+
+    
+
+    for i in range(0,len(first)):
+
+
+        temp = list(first[i])
+
+        temp2 = [ ]
+
+        for q in member:
+            if q not in temp:
+                temp2.append(q)
+
+
+        temp_sum = check(k,temp)
+        
+        temp_sum2 = check(k,temp2)
+        
+
+        
+        
+        answer.append(int(math.fabs(temp_sum-temp_sum2)))
+
+
+print(min(answer))
+
+    
+    

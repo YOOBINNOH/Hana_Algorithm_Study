@@ -1,0 +1,134 @@
+# 부등호
+
+# 순열로 푸니까 되긴 하네여
+
+import sys
+from itertools import permutations
+
+def check(list,k):
+
+    for i in range(0,len(list)-1):
+
+        bu = k[i]
+
+        if bu=='<':
+
+            if list[i]>list[i+1]:
+                return "00"
+
+        else:
+
+            if list[i]<list[i+1]:
+                return "00"
+
+    
+    return list
+            
+
+        
+        
+    
+
+num = int(input())
+
+k = list(sys.stdin.readline().rstrip().split(" "))
+
+number = [0,1,2,3,4,5,6,7,8,9]
+
+temp = list(permutations(number,num+1))
+
+answer = [ ]
+
+
+for i in range(0,len(temp)):
+
+    if check(temp[i],k) != "00":
+        
+        answer.append(check(temp[i],k))
+
+max_answer = list(max(answer))
+min_answer = list(min(answer))
+
+for i in max_answer:
+    print(i,end="")
+
+print()
+for i in min_answer:
+    print(i,end="")
+    
+   
+   
+# 스타트와 링크
+
+# 조합을 이용해서 팀 경우의 수를 구했습니다. 범위가 작아서 시간 초과는 안나네요
+                  
+import sys
+from itertools import combinations
+import math
+
+def check(k,list):
+    
+    answer = 0
+    
+    for i in range(0,len(list)-1):
+        for j in range(i+1,len(list)):
+
+            answer += k[list[i]][list[j]]
+            answer += k[list[j]][list[i]]
+
+    return answer
+    
+
+    
+
+num =int(input())
+
+k = [ ]
+
+for i in range(num):
+    k.append(list(map(int,sys.stdin.readline().rstrip().split(" "))))
+
+
+member = [ ]
+
+for i in range(num):
+    member.append(i)
+
+all_sum = 0
+
+for i in range(0,len(k)):
+    all_sum += sum(k[i])
+    
+
+# 팀 나누기
+
+first = list(combinations(member,int(num/2)))
+
+answer = [ ]
+
+for i in range(0,len(first)):
+
+
+    temp = list(first[i])
+
+    temp2 = [ ]
+
+    for q in member:
+        if q not in temp:
+            temp2.append(q)
+
+
+    temp_sum = check(k,temp)
+    
+    temp_sum2 = check(k,temp2)
+    
+
+    
+    
+    answer.append(int(math.fabs(temp_sum-temp_sum2)))
+
+
+print(min(answer))
+
+
+                  

@@ -1,0 +1,56 @@
+// 백준_실버3_14501번_퇴사
+
+/*
+풀이>
+재귀를 사용한 깊이 우선 탐색을 사용해 풀이했다.
+현재 상담 금액의 정산을 다음 재귀에 조건에서 처리하도록 하여
+조건에 맞춰 금액을 정산할 수 있도록 만들었다.
+
+*/
+
+#include<iostream>
+
+using namespace std;
+
+int N;
+int T[16] = { 0, };
+int P[16] = { 0, };
+
+int sol = 0;
+
+void dfs(int idx, int total, int pre_val) {
+
+	if (idx > N) {
+		if (idx == N + 1) {
+			total += pre_val;
+		}
+		if (sol < total) {
+			sol = total;
+		}
+		return;
+	}
+
+	for (int i = idx; i <= N; i++) {
+		//cout << total + pre_val << '\n';
+		dfs(i+ T[i], total+pre_val, P[i]);
+	}
+
+}
+
+
+
+
+int main() {
+
+	cin >> N;
+
+	for (int i = 1; i <= N; i++) {
+		cin >> T[i] >> P[i];
+	}
+
+	dfs(1, 0, 0);
+
+	cout << sol;
+
+	return 0;
+}

@@ -1,0 +1,48 @@
+//백준_실버3_10974번_모든순열
+
+/*
+풀이>
+입력 값에 따른 모든 순열을 처리할 수 있도록 재귀를 사용한 깊이탐색으로
+모든 경우의 순열을 사전순으로 출력하였다.
+
+*/
+
+
+#include<iostream>
+
+using namespace std;
+
+int arr[9] = { 0, };
+int check[9] = { 0, };
+
+
+void dfs(int n, int count) {
+	if (count > n) {
+		for (int i = 1; i <= n; i++) {
+			cout << arr[i] << " ";
+		}
+		cout << '\n';
+	}
+
+	for (int i = 1; i <= n; i++) {
+
+		if (check[i] != 1) {
+			arr[count] = i;
+			check[i] = 1;
+			dfs(n, count + 1);
+			check[i] = 0;
+		}
+	}
+}
+
+int main() {
+
+	int N;
+
+	cin >> N;
+
+	dfs(N, 1);
+
+
+	return 0;
+}

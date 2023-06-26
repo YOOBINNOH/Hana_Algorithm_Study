@@ -1,0 +1,61 @@
+// 백준_실버2_15665번_N과M(11)
+
+
+/*
+풀이>
+전체적으로 재귀를 이용한 깊이 우선 탐색으로 구현했다.
+tmp변수를 사용해 같은 위치에 같은수가 중복으로 오지 않도록 하여 중복해서 세는 경우를 배제하였다.
+
+*/
+
+
+#include<iostream>
+#include<algorithm>
+
+using namespace std;
+
+
+int N, M;
+int arr[8] = { 0, };
+int sol[8] = { 0, };
+int tmp = 0;
+
+void print() {
+
+	for (int i = 1; i <= M; i++) {
+		cout << sol[i] << " ";
+	}
+	cout << '\n';
+}
+
+void dfs(int count) {
+	if (count > M) {
+		print();
+		return;
+	}
+	tmp = 0;
+	for (int i = 1; i <= N; i++) {
+		if (arr[i] != tmp) {
+			sol[count] = arr[i];
+			dfs(count + 1);
+		}
+
+		tmp = arr[i];
+	}
+}
+
+int main() {
+
+	cin >> N >> M;
+
+	for (int i = 1; i <= N; i++) {
+		cin >> arr[i];
+	}
+
+	sort(arr+1, arr + N +1);
+
+	dfs(1);
+
+
+	return 0;
+}

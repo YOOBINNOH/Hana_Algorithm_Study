@@ -1,0 +1,111 @@
+# 퇴사
+
+# N 값이 작길래 조합으로 풀었습니다. check 함수 내에서 체크할 부분이 있어서 좀 까다로웠네요
+
+import sys
+from itertools import combinations
+
+def check(k,num):
+
+    answer = 0
+    
+    for i in range(0,len(k)-1):
+
+        if k[i][1]>k[i+1][0]:
+            return answer
+        else:
+            if k[i][1]>=num:
+                return answer
+            else:
+                answer += k[i][2]
+
+    
+    if k[-1][1]<=num:
+        answer += k[-1][2]
+
+    
+    return answer
+
+        
+
+
+num = int(input())
+
+k = [ ]
+
+for i in range(num):
+    temp = (list(map(int,sys.stdin.readline().rstrip().split(" "))))
+   
+ 
+    k.append([i,temp[0]+i,temp[1]])
+
+
+
+answer = [ ]
+
+for i in range(1,num+1):    
+
+    temp = list(combinations(k,i))
+
+    for j in range(0,len(temp)):
+        
+        answer.append(check(temp[j],num))
+
+print(max(answer))
+
+
+
+
+
+
+
+# 암호 만들기
+
+# 숫자가 작아서 조합으로 해결했다.
+
+import sys
+from itertools import combinations
+ 
+ 
+L,C = list(map(int,sys.stdin.readline().rstrip().split(" ")))
+ 
+k = list(sys.stdin.readline().rstrip().split(" "))
+ 
+mo = ['a','e','i','o','u']
+ 
+ 
+temp = list(combinations(k,L))
+ 
+answer = [ ]
+ 
+for i in range(0,len(temp)):
+ 
+    a = temp[i]
+ 
+    momo = 0
+    jaja = 0
+ 
+    for j in range(0,len(a)):
+ 
+        if a[j] in mo:
+            momo += 1
+        else:
+            jaja += 1
+ 
+    if momo>=1 and jaja>=2:
+ 
+        a = list(sorted(a))
+ 
+        answer.append("".join(a))
+ 
+answer = list(sorted(answer))
+ 
+for i in answer:
+    print(i)
+ 
+ 
+ 
+ 
+ 
+ 
+    

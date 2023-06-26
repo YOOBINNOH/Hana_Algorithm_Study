@@ -1,0 +1,48 @@
+# 로또
+
+# 조합을 이용했고요, print() 만 해도 한줄 띄어지는데 print("\n") 했다가 출력 오류라고 계속 떴네요
+
+import sys
+from itertools import combinations
+
+
+while True:
+
+    
+    k = (list(map(int,input().split(" ")))) 
+    
+    if len(k)==1:
+        break
+
+
+    else:
+
+        temp = list(sorted(list(set(list(combinations(k[1:],6))))))
+
+
+        for i in temp:
+            print(*i)
+        print()
+
+
+
+
+
+
+# N과 M(11)
+
+# product 이용해서 풀었어요. 
+
+import sys
+from itertools import product
+
+
+    
+N,M = (list(map(int,input().split(" ")))) 
+
+k = list(map(int,input().split(" ")))
+
+temp = list(sorted(list(set(list(product(k,repeat = M))))))
+
+for i in temp:
+    print(*i)
