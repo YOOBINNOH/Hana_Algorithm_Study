@@ -1,0 +1,54 @@
+// 백준_실버2_1182번_부분수열의합
+
+/*
+풀이>
+1~N개의 부분수열을 중복없이 고르기위해 다음 idx는 이전에 선택한 idx보다 큰값만을 선택하도록하였고
+매번 합이 S와 같은지 체크를 해줌으로써 1개로이루어진 부분수열부터 N개로 이루어진 부분수열까지 모두
+체크할 수 있도록 하였다.
+
+*/
+
+
+
+#include<iostream>
+
+using namespace std;
+
+int sol = 0;
+
+void dfs(int n, int s, int* arr,int idx, int total) {
+	if (total == s) {
+		++sol;
+	}
+
+	for (int i = idx; i <= n; i++) {
+		total += arr[i];
+		dfs(n, s, arr, i + 1, total);
+		total -= arr[i];
+	}
+}
+
+int main() {
+
+	int N, S;
+	int* arr;
+
+	cin >> N >> S;
+
+	arr = new int[N+1];
+
+	for (int i = 1; i <= N; i++) {
+		cin >> arr[i];
+	}
+
+	if (S == 0) {	// S가 0일때는 dfs에서 처음부터 개수를 세게 되므로 sol=-1로 설정
+		sol = -1;
+	}
+
+	dfs(N, S, arr, 1, 0);
+
+	cout << sol;
+
+	delete[] arr;
+	return 0;
+}

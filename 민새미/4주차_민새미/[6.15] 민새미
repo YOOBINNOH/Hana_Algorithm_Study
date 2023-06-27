@@ -66,6 +66,7 @@ for i in range(n):
 visited = [0] * n
 out = []
 
+
 check = 1e9 #1000000으로 하면 틀렸다고 나옴.. 왜 10의 9승까지로 해야하는지 모르겠음..!ㅠ
 # import sys 하고 check=sys.maxsize 해서 #출력할 최소값 정의     하는 방법도 있음. 얘는 통과!
 
