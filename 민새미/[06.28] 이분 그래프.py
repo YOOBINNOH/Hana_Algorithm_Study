@@ -95,6 +95,10 @@ for _ in range(int(input())):
     print("YES" if result else "NO")
 
 
+
+######################################################
+# 혼자 대충 풀어본 코드..ㅎ 틀린 코드임
+
 # import sys
 
 # input = sys.stdin.readline
