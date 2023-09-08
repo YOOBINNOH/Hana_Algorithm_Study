@@ -1,0 +1,51 @@
+//조이스틱
+
+class Solution {
+    public int solution(String name) {
+        int answer = 0;
+        int length = name.length();
+        int index;// 다음 값들을 확인할때 사용
+        int move = length - 1;
+        
+        for(int i = 0 ; i < name.length(); i ++){
+            //위아래 움직이는 부분. 어느게 가장 빠른지 확인
+            answer += Math.min(name.charAt(i)-'A', 'Z' - name.charAt(i) +1);
+            
+            //연속되는 A 갯수 확인 (처음에는 A로만 이루어졌다고 했음)
+            index = i + 1;
+            while(index<length && name.charAt(index)=='A'){
+                index++;
+            }
+            // 순서대로 가는 것과, 뒤로 돌아가는 것 중 이동수가 적은 것을 선택
+            move = Math.min(move, i*2+name.length()-index);
+                        // BBBBAAAAAAAB 와 같이, 처음부터 뒷부분을 먼저 입력하는 것이 더 빠른 경우까지 고려하려면 아래의 코드가 필요합니다.
+            move = Math.min(move, (name.length()-index)*2 + i);
+            
+        }
+        return answer +move;
+    }
+}
+----------------------------------
+//큰 수 만들기
+import java.util.*;
+class Solution {
+    public String solution(String number, int k) {
+        String answer = "";
+        StringBuffer sb = new StringBuffer();
+        int idx = 0;
+        int max = 0;
+        // 앞에서 부터 (전체길이 - k) 수 중 가장 큰 수 선택
+        for(int i = 0 ; i < number.length() - k; i ++){
+            max = 0 ;
+            // 선택한 수 다음 인덱스 부터 탐색 범위를 한칸씩 늘려가며 반복 탐색
+            for(int j = idx ; j<=i+k ; j ++){
+                if(max < number.charAt(j)-'0'){
+                    max = number.charAt(j) - '0';
+                    idx = j+1;
+                }
+            }
+            sb.append(max);
+        }
+        return sb.toString();
+    }
+}
